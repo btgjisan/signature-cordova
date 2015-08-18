@@ -35,25 +35,8 @@ node_modules
 npm-debug.log
 
 
-# iOS
-platforms/ios/build/
-platforms/ios/www/
-platforms/ios/cordova/console.log
-*.xcuserdatad
-*.xcworkspace
-
 # android
-platforms/android/assets/www
-platforms/android/bin
-platforms/android/gen
-platforms/android/local.properties
-platforms/android/ant-build
-platforms/android/ant-gen
-platforms/android/CordovaLib/ant-build
-platforms/android/CordovaLib/ant-gen
-platforms/android/CordovaLib/bin
-platforms/android/CordovaLib/gen
-platforms/android/CordovaLib/local.properties
+platforms
 
 # wp8
 platforms/wp8/bin
