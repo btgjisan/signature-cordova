@@ -41,7 +41,7 @@ body {
     height:100%;
     margin:0px;
     padding:0px;
-    text-transform:uppercase;
+    /*text-transform:uppercase;*/
     width:100%;
 }
 
@@ -97,6 +97,22 @@ h1 {
     display:none;
 }
 
+/*Utility Classes*/
+.hide {
+    display: none !important;
+}
+
+.show{
+    display: block !important;
+}
+
+.visible{
+    visibility: visible !important;
+}
+
+.invisible{
+    visibility: hidden !important;
+}
 @keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }
@@ -218,9 +234,14 @@ canvas {
     right: 0;
 }
 
+.signature-img{
+    max-width: 300px;
+    max-height: 200px;
+}
+
 @media screen and (max-width: 1024px) {
     .m-signature-pad {
-        top: 0;
+        top: 20%;
         left: 0;
         right: 0;
         bottom: 0;
@@ -228,6 +249,7 @@ canvas {
         height: auto;
         min-width: 250px;
         min-height: 140px;
+        max-height: 400px;
         margin: 5%;
     }
     #github {
@@ -261,3 +283,7 @@ canvas {
     }
 }
 
+/*Override Defaults*/
+.content > .table-view:first-child {
+    margin-top: 0;
+}

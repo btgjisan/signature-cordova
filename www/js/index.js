@@ -1,51 +1,63 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        //var parentElement = document.getElementById(id);
-        //var listeningElement = parentElement.querySelector('.listening');
-        //var receivedElement = parentElement.querySelector('.received');
-        //
-        //listeningElement.setAttribute('style', 'display:none;');
-        //receivedElement.setAttribute('style', 'display:block;');
+window.Signatures = window.Signatures? window.Signatures: [];
 
-        console.log('Received Event: ' + id);
+var savedSignaturesButton = document.getElementById("saved-signatures"),
+    homeButton = document.getElementById("home-btn"),
+    wrapper = document.getElementById("signature-pad"),
+    clearButton = wrapper.querySelector("[data-action=clear]"),
+    saveButton = wrapper.querySelector("[data-action=save]"),
+    canvas = wrapper.querySelector("canvas"),
+    signaturePad;
+
+console.log("reloaded")
+
+//// Adjust canvas coordinate space taking into account pixel ratio,
+//// to make it look crisp on mobile devices.
+//// This also causes canvas to be cleared.
+function resizeCanvas() {
+    // When zoomed out to less than 100%, for some very strange reason,
+    // some browsers report devicePixelRatio as less than 1
+    // and only part of the canvas is cleared then.
+    var ratio =  Math.max(window.devicePixelRatio || 1, 1);
+    canvas.width = canvas.offsetWidth * ratio;
+    canvas.height = canvas.offsetHeight * ratio;
+    canvas.getContext("2d").scale(ratio, ratio);
+}
+
+window.onresize = resizeCanvas;
+resizeCanvas();
+
+signaturePad = new SignaturePad(canvas);
+
+savedSignaturesButton.addEventListener("click", function(event){
+    var savedSignaturesTemplate = Handlebars.compile($("#signature-list-tpl").html());
+    var savedSignaturesHtml = savedSignaturesTemplate(Signatures);
+    $("#signature-pad").addClass("hide");
+    $('body').append(savedSignaturesHtml);
+    $("#saved-signatures").addClass("hide");
+    $("#home-btn").removeClass("hide")
+});
+
+homeButton.addEventListener("click", function(event){
+    var body = document.getElementsByTagName('body')[0];
+    var savedSignaturesHtml = document.getElementById("signature-list-content");
+    body.removeChild(savedSignaturesHtml);
+    $("#signature-pad").removeClass("hide");
+    $("#saved-signatures").removeClass("hide");
+    $("#home-btn").addClass("hide");
+});
+
+clearButton.addEventListener("click", function (event) {
+    signaturePad.clear();
+});
+
+saveButton.addEventListener("click", function (event) {
+    if (signaturePad.isEmpty()) {
+        alert("Please provide signature first.");
+    } else {
+        Signatures.push(signaturePad.toDataURL());
+        console.log("Signatures", Signatures);
+        signaturePad.clear();
     }
-};
+});
 
-app.initialize();
+
