@@ -1,4 +1,4 @@
-# signature-cordova
+# Signature-Cordova
 A Proof Of Concept Cordova repo for E-signatures. Can be used to build both iOS and Android App. 
 
 ##To run the app on Android
