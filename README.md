@@ -30,6 +30,6 @@ Open up a command line terminal, and
 Please report any problems in the issues section.
 
 ###Credits
-This app uses the signature_pad codebase that was developed by Szymon Nowak [GitHub](https://github.com/szimek/signature_pad)
+This app uses the signature_pad codebase that was developed by Szymon Nowak, you can find the repo here: [GitHub](https://github.com/szimek/signature_pad)
 
 
