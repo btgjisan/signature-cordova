@@ -8,7 +8,6 @@ var savedSignaturesButton = document.getElementById("saved-signatures"),
     canvas = wrapper.querySelector("canvas"),
     signaturePad;
 
-console.log("reloaded")
 
 //// Adjust canvas coordinate space taking into account pixel ratio,
 //// to make it look crisp on mobile devices.
@@ -59,5 +58,36 @@ saveButton.addEventListener("click", function (event) {
         signaturePad.clear();
     }
 });
+
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicitly call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+        StatusBar.overlaysWebView( false );
+        StatusBar.backgroundColorByHexString('#ffffff');
+        StatusBar.styleDefault();
+        app.receivedEvent('deviceready');
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+
+        console.log('Received Event: ' + id);
+    }
+};
+
+app.initialize();
 
 
