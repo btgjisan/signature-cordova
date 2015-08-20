@@ -1,5 +1,5 @@
 # Signature-Cordova
-A Proof Of Concept Cordova repo for E-signatures. Can be used to build both iOS and Android App. 
+A Proof Of Concept Cordova repo for E-signatures. Can be used to build both iOS and Android apps. 
 
 ##To run the app on Android
 Open up a command line terminal, and
